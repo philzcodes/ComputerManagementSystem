@@ -1,0 +1,80 @@
+/* Reuse the base CSS from previous sections for consistency */
+.support-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.support-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.support-header h1 {
+  color: #333;
+  font-size: 28px;
+}
+
+.support-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.input-group select,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #49525c;
+  outline: none;
+}
+
+.button-group {
+  text-align: right;
+}
+
+.button-group button {
+  background-color: #49525c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #343a40;
+}

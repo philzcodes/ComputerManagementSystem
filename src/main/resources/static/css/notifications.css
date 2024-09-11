@@ -1,0 +1,96 @@
+/* styles.css */
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f0f2f5;
+}
+
+.alerts-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.alerts-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.alerts-header h1 {
+  color: #333;
+  font-size: 28px;
+}
+
+.alerts-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.alert-item {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.alert-item.critical {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.alert-item.warning {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.alert-item.info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.input-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.button-group {
+  text-align: right;
+}
+
+.button-group button {
+  background-color: #49525c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-group button:hover {
+  background-color: #343a40;
+}

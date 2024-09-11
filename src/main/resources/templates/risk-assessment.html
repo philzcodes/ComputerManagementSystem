@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Risk Assessment</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>Risk Assessment for All Devices</h1>
+
+    <div class="card">
+      <h2>Risk Levels</h2>
+      <canvas id="riskAssessmentChart"></canvas>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const riskLevels = /*[[${riskLevels}]]*/ [];
+
+        const riskAssessmentCtx = document
+          .getElementById("riskAssessmentChart")
+          .getContext("2d");
+        new Chart(riskAssessmentCtx, {
+          type: "bar",
+          data: {
+            labels: [
+              "Server 1",
+              "Router 2",
+              "Switch 3",
+              "Firewall 4",
+              "Server 2",
+            ], // Example labels
+            datasets: [
+              {
+                label: "Risk Level",
+                data: riskLevels,
+                backgroundColor: [
+                  "#dc3545",
+                  "#ffc107",
+                  "#28a745",
+                  "#17a2b8",
+                  "#49525c",
+                ],
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "Risk Level",
+                },
+              },
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

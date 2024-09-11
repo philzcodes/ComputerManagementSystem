@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maintenance Schedule - Maintenance Management System</title>
+    <link rel="stylesheet" href="/css/maintainance.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a th:href="@{/dashboard}" class="navbar-logo">Maintenance System</a>
+        <ul class="navbar-menu">
+          <li><a th:href="@{/equipment}">Equipment Management</a></li>
+          <li><a th:href="@{/maintenance}">Maintenance Schedule</a></li>
+          <li><a th:href="@{/workorders}">Work Orders</a></li>
+          <li><a th:href="@{/workorders}">Reporting & Analytics</a></li>
+          <li><a th:href="@{/users}">User Management</a></li>
+        </ul>
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="schedule-container">
+      <header class="schedule-header">
+        <h1>Maintenance Schedule</h1>
+        <button id="addScheduleBtn" class="add-btn">
+          + Add Maintenance Task
+        </button>
+      </header>
+
+      <div class="schedule-content">
+        <div id="calendar"></div>
+      </div>
+    </div>
+
+    <!-- Modal for adding/editing schedule -->
+    <div id="scheduleModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Add Maintenance Task</h2>
+        <form id="scheduleForm" th:action="@{/maintenance/add}" method="post">
+          <div class="input-group">
+            <label for="taskName">Task Name</label>
+            <input type="text" id="taskName" name="taskName" required />
+          </div>
+          <div class="input-group">
+            <label for="equipment">Equipment</label>
+            <select id="equipment" name="equipment" required>
+              <option
+                th:each="equipment : ${equipmentList}"
+                th:value="${equipment.name}"
+                th:text="${equipment.name}"
+              ></option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="assignedTo">Assigned To</label>
+            <select id="assignedTo" name="technician" required>
+              <option
+                th:each="technician : ${technicianList}"
+                th:value="${technician.name}"
+                th:text="${technician.name}"
+              ></option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label for="taskDate">Task Date</label>
+            <input type="date" id="taskDate" name="date" required />
+          </div>
+          <div class="button-group">
+            <button type="submit">Save Task</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/maintainance.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+  </body>
+</html>

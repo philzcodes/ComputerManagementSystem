@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DSS Predictions</title>
+</head>
+<body>
+    <h2>Predictive Maintenance Suggestions</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Equipment</th>
+            <th>Risk Level</th>
+            <th>Suggested Action</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="prediction : ${predictions}">
+            <td th:text="${prediction.id}"></td>
+            <td th:text="${prediction.equipment}"></td>
+            <td th:text="${prediction.riskLevel}"></td>
+            <td th:text="${prediction.suggestedAction}"></td>
+            <td>
+                <a th:href="@{/dss/delete/{id}(id=${prediction.id})}">Delete</a>
+            </td>
+        </tr>
+    </table>
+
+    <h3>Add New Prediction</h3>
+    <form th:action="@{/dss/add}" method="post">
+        <label>Equipment:</label> <input type="text" name="equipment" />
+        <label>Risk Level:</label> <input type="text" name="riskLevel" />
+        <label>Suggested Action:</label> <input type="text" name="suggestedAction" />
+        <button type="submit">Add Prediction</button>
+    </form>
+</body>
+</html>

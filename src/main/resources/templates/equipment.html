@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equipment Management - Maintenance Management System</title>
+    <link rel="stylesheet" href="/css/equipment_style.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a th:href="@{/dashboard}" class="navbar-logo">Maintenance System</a>
+        <ul class="navbar-menu">
+          <li><a th:href="@{/equipment}">Equipment Management</a></li>
+          <li><a th:href="@{/maintenance}">Maintenance Schedule</a></li>
+          <li><a th:href="@{/workorders}">Work Orders</a></li>
+          <li><a th:href="@{/workorders}">Reporting & Analytics</a></li>
+          <li><a th:href="@{/users}">User Management</a></li>
+        </ul>
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="equipment-container">
+      <header class="equipment-header">
+        <h1>Equipment Management</h1>
+        <button id="addEquipmentBtn" class="add-btn">+ Add Equipment</button>
+      </header>
+
+      <div class="equipment-content">
+        <table class="equipment-table">
+          <thead>
+            <tr>
+              <th>Equipment ID</th>
+              <th>Name</th>
+              <th>Model</th>
+              <th>Manufacturer</th>
+              <th>Installation Date</th>
+              <th>Location</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="equipmentTableBody">
+            <!-- Thymeleaf iteration to populate data dynamically -->
+            <tr th:each="equipment : ${equipmentList}">
+              <td th:text="${equipment.id}"></td>
+              <td th:text="${equipment.name}"></td>
+              <td th:text="${equipment.model}"></td>
+              <td th:text="${equipment.manufacturer}"></td>
+              <td th:text="${equipment.installationDate}"></td>
+              <td th:text="${equipment.location}"></td>
+              <td>
+                <a th:href="@{'/equipment/details/' + ${equipment.id}}"
+                  >View Details</a
+                >
+              </td>
+              <td class="actions-btn">
+                <button
+                  class="edit-btn"
+                  th:attr="onclick='editEquipment(' + ${equipment.id} + ')'"
+                >
+                  Edit
+                </button>
+                <button
+                  class="delete-btn"
+                  th:attr="onclick='deleteEquipment(' + ${equipment.id} + ')'"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal for adding/editing equipment -->
+    <div id="equipmentModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Add Equipment</h2>
+        <form id="equipmentForm" th:action="@{/equipment/add}" method="post">
+          <div class="input-group">
+            <label for="equipmentName">Equipment Name</label>
+            <input type="text" id="equipmentName" name="name" required />
+          </div>
+          <div class="input-group">
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" required />
+          </div>
+          <div class="input-group">
+            <label for="manufacturer">Manufacturer</label>
+            <input type="text" id="manufacturer" name="manufacturer" required />
+          </div>
+          <div class="input-group">
+            <label for="installationDate">Installation Date</label>
+            <input
+              type="date"
+              id="installationDate"
+              name="installationDate"
+              required
+            />
+          </div>
+          <div class="input-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required />
+          </div>
+
+          <!-- New field for Failure Probability -->
+          <div class="input-group">
+            <label for="failureProbability"
+              >Failure Probability (comma-separated values)</label
+            >
+            <input
+              type="text"
+              id="failureProbability"
+              name="failureProbability"
+              placeholder="e.g., 10, 20, 30"
+              required
+            />
+          </div>
+
+          <!-- Resource Recommendation -->
+          <div class="input-group">
+            <label for="resourceRecommendation">Resource Recommendation</label>
+            <input
+              type="text"
+              id="resourceRecommendation"
+              name="resourceRecommendation"
+              required
+            />
+          </div>
+
+          <!-- Scheduling Recommendation -->
+          <div class="input-group">
+            <label for="schedulingRecommendation"
+              >Scheduling Recommendation</label
+            >
+            <input
+              type="text"
+              id="schedulingRecommendation"
+              name="schedulingRecommendation"
+              required
+            />
+          </div>
+
+          <!-- Inventory Recommendation -->
+          <div class="input-group">
+            <label for="inventoryRecommendation"
+              >Inventory Recommendation</label
+            >
+            <input
+              type="text"
+              id="inventoryRecommendation"
+              name="inventoryRecommendation"
+              required
+            />
+          </div>
+
+          <!-- Risk Level -->
+          <div class="input-group">
+            <label for="riskLevel">Risk Level (1-5)</label>
+            <input
+              type="number"
+              id="riskLevel"
+              name="riskLevel"
+              min="1"
+              max="5"
+              required
+            />
+          </div>
+
+          <div class="button-group">
+            <button type="submit">Save Equipment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/equipment_script.js"></script>
+  </body>
+</html>

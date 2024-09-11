@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Management - Maintenance Management System</title>
+    <link rel="stylesheet" href="/css/user.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a th:href="@{/dashboard}" class="navbar-logo">Maintenance System</a>
+        <ul class="navbar-menu">
+          <li><a th:href="@{/equipment}">Equipment Management</a></li>
+          <li><a th:href="@{/maintenance}">Maintenance Schedule</a></li>
+          <li><a th:href="@{/workorders}">Work Orders</a></li>
+          <li><a th:href="@{/workorders}">Reporting & Analytics</a></li>
+          <li><a th:href="@{/users}">User Management</a></li>
+        </ul>
+        <button class="navbar-toggle" aria-label="Toggle navigation">
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+          <span class="navbar-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="user-management-container">
+      <header class="user-management-header">
+        <h1>User Management</h1>
+        <button id="addUserBtn" class="add-btn">+ Add User</button>
+      </header>
+
+      <div class="user-management-content">
+        <!-- User Roles Section -->
+        <div class="card">
+          <h2>Role-Based Access Control</h2>
+          <ul id="rolesList">
+            <li>Admin: Full access to all system functionalities.</li>
+            <li>Technician: Access to maintenance and work order sections.</li>
+            <li>Viewer: Read-only access to reports and dashboards.</li>
+          </ul>
+        </div>
+
+        <!-- Add/Edit Users Section -->
+        <div class="card">
+          <h2>Manage Users</h2>
+          <table class="user-table">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <!-- Thymeleaf will populate the data dynamically -->
+              <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
+                <td class="actions-btn">
+                  <button
+                    class="edit-btn"
+                    th:attr="onclick='editUser(' + ${user.id} + ')'"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    class="delete-btn"
+                    th:attr="onclick='deleteUser(' + ${user.id} + ')'"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Audit Logs Section -->
+        <div class="card">
+          <h2>Audit Logs</h2>
+          <table class="audit-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>User</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody">
+              <!-- Thymeleaf will populate the audit logs -->
+              <tr th:each="log : ${auditLogs}">
+                <td th:text="${log.date}"></td>
+                <td th:text="${log.username}"></td>
+                <td th:text="${log.action}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal for adding/editing users -->
+    <div id="userModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modalTitle">Add User</h2>
+        <form id="userForm" th:action="@{/users/save}" method="post">
+          <div class="input-group">
+            <label for="userName">Name</label>
+            <input type="text" id="userName" name="name" required />
+          </div>
+          <div class="input-group">
+            <label for="userEmail">Email</label>
+            <input type="email" id="userEmail" name="email" required />
+          </div>
+          <div class="input-group">
+            <label for="userRole">Role</label>
+            <select id="userRole" name="role" required>
+              <option value="Admin">Admin</option>
+              <option value="Technician">Technician</option>
+              <option value="Viewer">Viewer</option>
+            </select>
+          </div>
+          <div class="button-group">
+            <button type="submit">Save User</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/user_script.js"></script>
+  </body>
+</html>

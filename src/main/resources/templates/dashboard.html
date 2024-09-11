@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Maintenance Management System</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <header class="dashboard-header">
+        <nav class="navbar">
+          <div class="navbar-container">
+            <a th:href="@{/dashboard}" class="navbar-logo"
+              >Maintenance System</a
+            >
+            <ul class="navbar-menu">
+              <li><a th:href="@{/equipment}">Equipment Management</a></li>
+              <li><a th:href="@{/maintenance}">Maintenance Schedule</a></li>
+              <li><a th:href="@{/workorders}">Work Orders</a></li>
+              <li><a th:href="@{/workorders}">Reporting & Analytics</a></li>
+              <li><a th:href="@{/users}">User Management</a></li>
+            </ul>
+            <button class="navbar-toggle" aria-label="Toggle navigation">
+              <span class="navbar-icon"></span>
+              <span class="navbar-icon"></span>
+              <span class="navbar-icon"></span>
+            </button>
+          </div>
+        </nav>
+        <h1>System Dashboard</h1>
+      </header>
+
+      <div class="dashboard-content">
+        <div class="card system-status">
+          <h2>System Status</h2>
+          <p th:text="${systemStatus}">All systems are operational.</p>
+        </div>
+
+        <div class="card equipment-health">
+          <h2>Equipment Health</h2>
+          <ul>
+            <li th:each="equipment : ${equipmentHealth}">
+              <span th:text="${equipment.name}">Server 1</span>:
+              <span
+                th:class="'status ' + ${equipment.status.toLowerCase()}"
+                th:text="${equipment.status}"
+                >Healthy</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="card maintenance-schedule">
+          <h2>Upcoming Maintenance</h2>
+          <ul>
+            <li th:each="maintenance : ${upcomingMaintenance}">
+              <span th:text="${maintenance.equipment}">Server 2</span>:
+              <!-- <span th:text="${#dates.format(maintenance.date, 'MMM dd, yyyy')}">Aug 20, 2024</span>-->
+              <span th:text="${maintenance.date}">Aug 20, 2024</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card recent-alerts">
+          <h2>Recent Alerts</h2>
+          <ul>
+            <li th:each="alert : ${recentAlerts}">
+              <span th:text="${alert.message}"
+                >Switch 3: High temperature detected</span
+              >
+              -
+              <span th:text="${#dates.format(alert.date, 'MMM dd, yyyy')}"
+                >Aug 14, 2024</span
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="card notifications">
+          <h2>System Notifications</h2>
+          <ul>
+            <li th:each="notification : ${systemNotifications}">
+              <span th:text="${notification.message}"
+                >Backup completed successfully</span
+              >
+              -
+              <span
+                th:text="${#dates.format(notification.date, 'MMM dd, yyyy')}"
+                >Aug 15, 2024</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="js/nav.js"></script>
+  </body>
+</html>
