@@ -17,15 +17,11 @@ public class User {
     private String email;
     private String role;
     
-    
-    
 	public User() {
 		super();
 	}
 	
-	
 	public User(String name) {
-		super();
 		this.name = name;
 	}
 

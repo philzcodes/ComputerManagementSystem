@@ -32,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "POST",
       body: new FormData(userForm),
     })
-    .then(response => response.json())
     .then(data => {
       alert("User saved successfully!");
       userModal.style.display = "none";
